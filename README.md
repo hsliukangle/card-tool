@@ -15,8 +15,9 @@
 
 array (
   'is_exists' => true,
-  'card_name' => '中国光大银行-阳光卡(银联卡)-借记卡',
+  'bank_id' => 11,
   'bank_name' => '中国光大银行',
+  'card_name' => '中国光大银行-阳光卡(银联卡)-借记卡',
   'type' => '2',
   'color' =>  array (
         'r' => 247,
@@ -55,12 +56,19 @@ $card_number = "123";   //银行卡号
 
 try {
     $cardDb = new CardDb();
+    
+    //获取银行列表
+    $bankList = $cardDb->getBankList();
+    //var_export($bankList);
+    
+    //获取卡的信息
     $bank_info = $cardDb->getBankInfo($card_number);
 
     $result = [
         'is_exists' => $bank_info->isExists(),
-        'card_name' => $bank_info->getCardName(),
+        'bank_id' => $bank_info->getBankId(),
         'bank_name' => $bank_info->getBankName(),
+        'card_name' => $bank_info->getCardName(),
         'type' => $bank_info->getType(),
         'color' => $bank_info->getColor(),
         'bank_image' => $bank_info->getBankImage(),

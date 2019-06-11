@@ -7,6 +7,7 @@ class BankInfo
 
     private $is_exists = false;  //是否存在
     private $card_name = "";     //卡名称
+    private $bank_id = 0;      //银行id
     private $bank_name = "";      //银行名称
     private $type = 4;           //卡类型
     private $color = "#FFFFFF";  //卡颜色
@@ -17,6 +18,7 @@ class BankInfo
         if (!empty($data)) {
             $this->is_exists = true;
             $this->card_name = $data["name"];
+            $this->bank_id = $data["bank_id"];
             $this->bank_name = $data["bank_info"]["bank_name"];
             $this->type = $data["type"];
             $this->color = $data["bank_info"]["color"];
@@ -32,6 +34,11 @@ class BankInfo
     public function getCardName()
     {
         return $this->card_name;
+    }
+
+    public function getBankId()
+    {
+        return $this->bank_id;
     }
 
     public function getBankName()
