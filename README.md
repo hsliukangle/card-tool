@@ -30,8 +30,9 @@ array (
 ```
 
 - is_exists 是否查到了银行卡信息
-- card_name 卡名称
+- bank_id 银行id
 - bank_name 银行名称
+- card_name 卡名称
 - type 银行卡类型：1.信用卡 2.储蓄卡 3.预付卡 4.其他
 - color 卡的颜色
 - bank_image 卡的图片
