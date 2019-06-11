@@ -2,18 +2,19 @@
 
 namespace CardTool;
 
-class BankInfo{
+class BankInfo
+{
 
-    public $is_exists = false;
-    public $card_name = "";
-    public $bank_name= "";
-    public $type = 4;
-    public $color = "#FFFFFF";
-    public $bank_image = "";
+    public $is_exists = false;  //是否存在
+    public $card_name = "";     //卡名称
+    public $bank_name = "";      //银行名称
+    public $type = 4;           //卡类型
+    public $color = "#FFFFFF";  //卡颜色
+    public $bank_image = "";    //银行图标
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
-        if(!empty($data)){
+        if (!empty($data)) {
             $this->is_exists = true;
             $this->card_name = $data["name"];
             $this->bank_name = $data["bank_info"]["bank_name"];
@@ -23,22 +24,53 @@ class BankInfo{
         }
     }
 
-    public function isExists(){
+    public function isExists()
+    {
         return $this->is_exists;
     }
-    public function getCardName(){
+
+    public function getCardName()
+    {
         return $this->card_name;
     }
-    public function getBankName(){
+
+    public function getBankName()
+    {
         return $this->bank_name;
     }
-    public function getType(){
+
+    public function getType()
+    {
         return $this->type;
     }
-    public function getColor(){
-        return $this->color;
+
+    public function getColor()
+    {
+        //现在颜色那里是ARGB，需要转为RGB
+        $hexColor = substr($this->color, 3, 6);
+        $color = str_replace('#', '', $hexColor);
+        if (strlen($color) > 3) {
+            $rgb = [
+                'r' => hexdec(substr($color, 0, 2)),
+                'g' => hexdec(substr($color, 2, 2)),
+                'b' => hexdec(substr($color, 4, 2))
+            ];
+        } else {
+            $color = str_replace('#', '', $hexColor);
+            $r = substr($color, 0, 1) . substr($color, 0, 1);
+            $g = substr($color, 1, 1) . substr($color, 1, 1);
+            $b = substr($color, 2, 1) . substr($color, 2, 1);
+            $rgb = [
+                'r' => hexdec($r),
+                'g' => hexdec($g),
+                'b' => hexdec($b)
+            ];
+        }
+        return $rgb;
     }
-    public function getBankImage(){
+
+    public function getBankImage()
+    {
         return $this->bank_image;
     }
 }

@@ -18,7 +18,11 @@ array (
   'card_name' => '中国光大银行-阳光卡(银联卡)-借记卡',
   'bank_name' => '中国光大银行',
   'type' => '2',
-  'color' => '#FFFFB241',
+  'color' =>  array (
+        'r' => 247,
+        'g' => 89,
+        'b' => 89,
+   ),
   'bank_image' => 'bank-icon/374984955211414e39231e55de47a7ff.png',
 )
 
@@ -44,10 +48,13 @@ $ composer require hsliukangle/card-tool
 
 require __DIR__ . '/vendor/autoload.php';
 
+use \CardTool\CardDb;
+use \CardTool\CardToolException;
+
 $card_number = "123";   //银行卡号
 
 try {
-    $cardDb = new \CardTool\CardDb();
+    $cardDb = new CardDb();
     $bank_info = $cardDb->getBankInfo($card_number);
 
     $result = [
@@ -62,7 +69,7 @@ try {
 
     var_export($result);
 
-} catch (\CardTool\CardToolException $e) {
+} catch (CardToolException $e) {
     print_r($e->getMessage());
 }
 ```

@@ -30,25 +30,15 @@ class CardDb
      */
     public function __construct(string $db_file_path = null)
     {
-        $this->initialize($db_file_path);
-    }
-
-    /**
-     * 传入映射的银行数据，返回一个数组
-     * @param string|null $file_path
-     * @throws CardToolException
-     */
-    private function initialize(string $file_path = null)
-    {
-        if ($file_path === null) {
-            $file_path = __DIR__ . '\..\mappings-db\mappings.php';
+        if ($db_file_path === null) {
+            $db_file_path = __DIR__ . '\..\mappings-db\mappings.php';
         }
 
-        if (!is_readable($file_path)) {
+        if (!is_readable($db_file_path)) {
             throw new CardToolException('Cannot find Mapping file');
         }
 
-        $this->mapping = include $file_path;
+        $this->mapping = include $db_file_path;
     }
 
     /**
@@ -61,16 +51,16 @@ class CardDb
         $certain_bank_id = 0;
         $card_number = preg_replace('/\D/', '', $card_number);
 
-        foreach (self::SEARCH_ORDER as $length){
-            $prefix = substr((string) $card_number, 0, $length);
+        foreach (self::SEARCH_ORDER as $length) {
+            $prefix = substr((string)$card_number, 0, $length);
             $bank_info = $this->getBankIdByPrefix($prefix);
             if ($bank_info["bank_id"] > 0) {
                 $certain_bank_id = $bank_info["bank_id"];
                 break;
             }
         }
-        if(empty($certain_bank_id)){
-            return new BankInfo([]);
+        if (empty($certain_bank_id)) {
+            return new BankInfo();
         }
 
         $bank_info["bank_info"] = $this->getBankInfoFromDatabase($certain_bank_id);
@@ -82,9 +72,10 @@ class CardDb
      * @param int $prefix
      * @return array
      */
-    private function getBankIdByPrefix(int $prefix){
-        if(isset($this->mapping["mappings"][$prefix])){
-            return (array) $this->mapping['mappings'][$prefix];
+    private function getBankIdByPrefix(int $prefix)
+    {
+        if (isset($this->mapping["mappings"][$prefix])) {
+            return (array)$this->mapping['mappings'][$prefix];
         }
     }
 
