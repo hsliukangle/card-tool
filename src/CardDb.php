@@ -42,6 +42,15 @@ class CardDb
     }
 
     /**
+     * 获取银行列表
+     * @return array
+     */
+    public function getBankList()
+    {
+        return array_values($this->mapping["banks"]);
+    }
+
+    /**
      * 传入银行卡号返回相关信息
      * @param string $card_number
      * @return BankInfo

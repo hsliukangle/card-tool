@@ -5,12 +5,12 @@ namespace CardTool;
 class BankInfo
 {
 
-    public $is_exists = false;  //是否存在
-    public $card_name = "";     //卡名称
-    public $bank_name = "";      //银行名称
-    public $type = 4;           //卡类型
-    public $color = "#FFFFFF";  //卡颜色
-    public $bank_image = "";    //银行图标
+    private $is_exists = false;  //是否存在
+    private $card_name = "";     //卡名称
+    private $bank_name = "";      //银行名称
+    private $type = 4;           //卡类型
+    private $color = "#FFFFFF";  //卡颜色
+    private $bank_image = "";    //银行图标
 
     public function __construct(array $data = [])
     {
