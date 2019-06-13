@@ -31,7 +31,7 @@ class CardDb
     public function __construct(string $db_file_path = null)
     {
         if ($db_file_path === null) {
-            $db_file_path = __DIR__ . '\..\mappings-db\mappings.php';
+            $db_file_path = __DIR__ . '/../mappings-db/mappings.php';
         }
 
         if (!is_readable($db_file_path)) {
